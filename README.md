@@ -1,4 +1,5 @@
 # android-mvp-rxjava-repos
+
 Displaying Github repositories with an Android MVP + RxJava2 architecture
 
 Utilizes Retrofit2 and RxJava2 to retrieve Repository objects from the Github API server.
@@ -23,9 +24,7 @@ Utilizes Retrofit2 and RxJava2 to retrieve Repository objects from the Github AP
 
 ## Acknowledgements
 
-All of the contributors to the todo-mvp-kotlin-coroutines
+* Florina Muntenescu
+* Jose Alcerreca
 
 https://github.com/dmytrodanylyk/android-architecture/graphs/contributors
-
-https://github.com/JoseAlcerreca
-https://github.com/florina-muntenescu
