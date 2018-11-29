@@ -20,16 +20,17 @@
                                android:layout_height="match_parent">
 
     <RelativeLayout
-        android:id="@+id/tasksContainer"
+        android:id="@+id/reposContainer"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:clickable="true"
         android:orientation="vertical">
 
         <LinearLayout
-            android:id="@+id/tasksLL"
+            android:id="@+id/reposLL"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:visibility="visible"
             android:orientation="vertical">
 
             <TextView
@@ -41,13 +42,15 @@
                 android:textAppearance="@style/TextAppearance.AppCompat.Title"/>
 
             <ListView
-                android:id="@+id/tasks_list"
+                android:id="@+id/repos_list"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
+
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/noTasks"
+            android:id="@+id/norepos"
+            android:visibility="gone"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
