@@ -70,6 +70,7 @@ dependencies {
     // Retrofit REST API
     implementation "com.squareup.retrofit2:retrofit:$rootProject.ext.retrofitVersion"
     implementation "com.squareup.retrofit2:converter-jackson:$rootProject.ext.retrofitVersion"
+    implementation "com.squareup.retrofit2:adapter-rxjava2:$rootProject.ext.rxjava2adapterVersion"
 
     // OkHttp Logging
     implementation "com.squareup.okhttp3:logging-interceptor:$rootProject.ext.okhttpVersion"

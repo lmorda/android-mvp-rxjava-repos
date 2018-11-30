@@ -5,20 +5,25 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.util.Log;
 
-import com.example.lmorda.rxrepos.Injection;
 import com.example.lmorda.rxrepos.RepoConstants;
+import com.example.lmorda.rxrepos.data.GithubRepos;
+import com.example.lmorda.rxrepos.data.Repo;
+import com.example.lmorda.rxrepos.data.source.ReposDataSource;
 import com.example.lmorda.rxrepos.util.schedulers.BaseSchedulerProvider;
 
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
+import io.reactivex.Flowable;
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
+import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.jackson.JacksonConverterFactory;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
-public class ReposRemoteDataSource {
+public class ReposRemoteDataSource implements ReposDataSource {
 
     @Nullable
     private static ReposRemoteDataSource INSTANCE;
@@ -33,41 +38,6 @@ public class ReposRemoteDataSource {
         retrofit = buildRetrofit();
     }
 
-    private OkHttpClient buildOkHttpClient() {
-        OkHttpClient.Builder okHttpClientBuilder = new OkHttpClient.Builder();
-
-        // Connect / endpoint response timeouts for API Server
-        okHttpClientBuilder.readTimeout(10, TimeUnit.SECONDS);
-        okHttpClientBuilder.connectTimeout(10, TimeUnit.SECONDS);
-
-        // OkHttp Logging Interceptor
-        HttpLoggingInterceptor httpLoggingInterceptor = new HttpLoggingInterceptor();
-        httpLoggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
-        okHttpClientBuilder.addInterceptor(httpLoggingInterceptor);
-
-        return okHttpClientBuilder.build();
-    }
-
-    private Retrofit buildRetrofit() {
-        // New Retrofit 2.0 builder
-        Retrofit.Builder retrofitBuilder = new Retrofit.Builder();
-
-        // Halarious converter for JSON serialization / deserialization
-        retrofitBuilder.addConverterFactory(JacksonConverterFactory.create());
-        retrofitBuilder.client(buildOkHttpClient());
-
-        // Set endpoint base URL
-        try {
-            retrofitBuilder.baseUrl(RepoConstants.BASE_URL);
-        } catch (IllegalArgumentException iae) {
-            Log.e("okhttp", iae.getMessage());
-        }
-
-        // Build and create Retrofit service
-        return retrofitBuilder.build();
-    }
-
-
     public static ReposRemoteDataSource getInstance(
             @NonNull Context context,
             @NonNull BaseSchedulerProvider schedulerProvider) {
@@ -80,4 +50,31 @@ public class ReposRemoteDataSource {
     public static void destroyInstance() {
         INSTANCE = null;
     }
+
+
+    private OkHttpClient buildOkHttpClient() {
+        OkHttpClient.Builder okHttpClientBuilder = new OkHttpClient.Builder();
+        okHttpClientBuilder.readTimeout(10, TimeUnit.SECONDS);
+        okHttpClientBuilder.connectTimeout(10, TimeUnit.SECONDS);
+        HttpLoggingInterceptor httpLoggingInterceptor = new HttpLoggingInterceptor();
+        httpLoggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
+        okHttpClientBuilder.addInterceptor(httpLoggingInterceptor);
+        return okHttpClientBuilder.build();
+    }
+
+    private Retrofit buildRetrofit() {
+        Retrofit.Builder retrofitBuilder = new Retrofit.Builder()
+                .addConverterFactory(JacksonConverterFactory.create())
+                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+                .baseUrl(RepoConstants.BASE_URL)
+                .client(buildOkHttpClient());
+        return retrofitBuilder.build();
+    }
+
+    @Override
+    public Flowable<List<Repo>> getRepos() {
+        Flowable<GithubRepos> githubRepos = retrofit.create(GithubApiService.class).getTrendingRepos(RepoConstants.TRENDING_URL);
+        return githubRepos.concatMap( repos -> Flowable.just(repos.items));
+    }
+
 }

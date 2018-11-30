@@ -2,23 +2,26 @@ package com.example.lmorda.rxrepos.data.source;
 
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.annotation.VisibleForTesting;
 
 import com.example.lmorda.rxrepos.data.Repo;
 
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 import io.reactivex.Flowable;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
 public class ReposRepository implements ReposDataSource {
+
     @Nullable
     private static ReposRepository INSTANCE = null;
 
     @NonNull
     private final ReposDataSource mReposRemoteDataSource;
 
-    // Prevent direct instantiation.
     private ReposRepository(@NonNull ReposDataSource reposRemoteDataSource) {
         mReposRemoteDataSource = checkNotNull(reposRemoteDataSource);
     }
@@ -36,6 +39,7 @@ public class ReposRepository implements ReposDataSource {
 
     @Override
     public Flowable<List<Repo>> getRepos() {
-        return null;
+        //TODO: Add repository level RxJava map operators with a cache layer
+        return mReposRemoteDataSource.getRepos();
     }
 }
