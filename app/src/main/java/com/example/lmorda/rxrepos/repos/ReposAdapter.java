@@ -55,7 +55,12 @@ public class ReposAdapter extends BaseAdapter {
 
         final Repo repo = getItem(i);
 
-        TextView titleTV = rowView.findViewById(R.id.title);
+        TextView titleTV = rowView.findViewById(R.id.repo_name);
+        titleTV.setText(repo.name);
+
+        TextView descriptionTV = rowView.findViewById(R.id.repo_description);
+        descriptionTV.setText(repo.description);
+
         return rowView;
     }
 }

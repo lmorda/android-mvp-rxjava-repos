@@ -7,7 +7,6 @@ import io.reactivex.Scheduler;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 
-
 /**
  * Provides different types of schedulers.
  */
@@ -25,12 +24,6 @@ public class SchedulerProvider implements BaseSchedulerProvider {
             INSTANCE = new SchedulerProvider();
         }
         return INSTANCE;
-    }
-
-    @Override
-    @NonNull
-    public Scheduler computation() {
-        return Schedulers.computation();
     }
 
     @Override

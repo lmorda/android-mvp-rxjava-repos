@@ -9,12 +9,25 @@ import java.util.List;
 public interface ReposContract {
 
     interface View extends BaseView<Presenter> {
+
+        void setLoadingIndicator(boolean active);
+
         void showRepos(List<Repo> repos);
+
+        void showLoadingReposError(String error);
+
+        void showNoRepos();
+
     }
 
 
     interface Presenter extends BasePresenter {
+
         void loadRepos();
+
+        void setFiltering(ReposFilterType requestType);
+
+        ReposFilterType getFiltering();
 
     }
 }

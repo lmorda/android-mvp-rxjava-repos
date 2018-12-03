@@ -15,12 +15,6 @@ public class ImmediateSchedulerProvider implements BaseSchedulerProvider {
 
     @NonNull
     @Override
-    public Scheduler computation() {
-        return Schedulers.trampoline();
-    }
-
-    @NonNull
-    @Override
     public Scheduler io() {
         return Schedulers.trampoline();
     }

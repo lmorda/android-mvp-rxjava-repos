@@ -1,23 +1,22 @@
 package com.example.lmorda.rxrepos.repos;
 
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
-import android.support.design.widget.Snackbar;
-import android.support.v4.view.GravityCompat;
+import android.support.test.espresso.IdlingResource;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.View;
-import android.view.Menu;
-import android.view.MenuItem;
 
 import com.example.lmorda.rxrepos.Injection;
 import com.example.lmorda.rxrepos.R;
 import com.example.lmorda.rxrepos.util.ActivityUtils;
+import com.example.lmorda.rxrepos.util.EspressoIdlingResource;
+import android.support.annotation.VisibleForTesting;
 
 public class ReposActivity extends AppCompatActivity {
+
+    private static final String CURRENT_FILTERING_KEY = "CURRENT_FILTERING_KEY";
 
     private DrawerLayout mDrawerLayout;
 
@@ -43,47 +42,30 @@ public class ReposActivity extends AppCompatActivity {
 
         ReposFragment reposFragment = (ReposFragment) getSupportFragmentManager().findFragmentById(R.id.contentFrame);
         if (reposFragment == null) {
-            // Create the fragment
             reposFragment = ReposFragment.newInstance();
             ActivityUtils.addFragmentToActivity(getSupportFragmentManager(), reposFragment, R.id.contentFrame);
         }
 
-        // Create the presenter
         mReposPresenter = new ReposPresenter(
-                Injection.provideReposRepository(getApplicationContext()),
+                Injection.provideReposRemoteDataSource(getApplicationContext()),
                 reposFragment,
                 Injection.provideSchedulerProvider());
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_repos, menu);
-        return true;
-    }
+    public void onSaveInstanceState(Bundle outState) {
+        outState.putSerializable(CURRENT_FILTERING_KEY, mReposPresenter.getFiltering());
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case android.R.id.home:
-                // Open the navigation drawer when the home icon is selected from the toolbar.
-                mDrawerLayout.openDrawer(GravityCompat.START);
-                return true;
-        }
-        return super.onOptionsItemSelected(item);
+        super.onSaveInstanceState(outState);
     }
 
     private void setupDrawerContent(NavigationView navigationView) {
         navigationView.setNavigationItemSelectedListener(
                 menuItem -> {
                     switch (menuItem.getItemId()) {
-//                        case R.id.list_navigation_menu_item:
+                        case R.id.list_navigation_menu_item:
 //                            // Do nothing, we're already on that screen
-//                            break;
-//                        case R.id.statistics_navigation_menu_item:
-//                            Intent intent =
-//                                    new Intent(ReposActivity.this, StatisticsActivity.class);
-//                            startActivity(intent);
-//                            break;
+                            break;
                         default:
                             break;
                     }
@@ -91,5 +73,11 @@ public class ReposActivity extends AppCompatActivity {
                     mDrawerLayout.closeDrawers();
                     return true;
                 });
+    }
+
+
+    @VisibleForTesting
+    public IdlingResource getCountingIdlingResource() {
+        return EspressoIdlingResource.getIdlingResource();
     }
 }
