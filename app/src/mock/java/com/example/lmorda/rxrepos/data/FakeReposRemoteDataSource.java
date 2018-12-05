@@ -1,15 +1,17 @@
 package com.example.lmorda.rxrepos.data;
 
-import com.example.lmorda.rxrepos.data.source.GithubApiService;
+import android.support.annotation.NonNull;
+
+import com.example.lmorda.rxrepos.data.source.ReposDataSource;
+import com.example.lmorda.rxrepos.data.source.remote.GithubApiService;
+import com.google.common.base.Optional;
 
 import java.util.ArrayList;
-import java.util.Collection;
+import java.util.List;
 
 import io.reactivex.Flowable;
-import io.reactivex.Observable;
-import retrofit2.Response;
 
-public class FakeReposRemoteDataSource implements GithubApiService {
+public class FakeReposRemoteDataSource implements ReposDataSource {
 
     private static FakeReposRemoteDataSource INSTANCE;
 
@@ -42,8 +44,22 @@ public class FakeReposRemoteDataSource implements GithubApiService {
         return INSTANCE;
     }
 
-    public Observable<GithubRepos> getRepos(String url) {
-        return Observable.just(REPOS_SERVICE_DATA);
+    public Flowable<GithubRepos> getRepos(String url) {
+        return Flowable.just(REPOS_SERVICE_DATA);
     }
 
+    @Override
+    public Flowable<List<Repo>> getRepos() {
+        return null;
+    }
+
+    @Override
+    public Flowable<Optional<Repo>> getRepo(@NonNull Integer repoId) {
+        return null;
+    }
+
+    @Override
+    public void saveRepo(@NonNull Repo repo) {
+
+    }
 }

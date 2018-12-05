@@ -63,8 +63,12 @@ dependencies {
     implementation "com.android.support:support-v4:$rootProject.supportLibraryVersion"
     implementation "com.android.support.test.espresso:espresso-idling-resource:$rootProject.espressoVersion"
     implementation "com.google.guava:guava:$rootProject.guavaVersion"
+
+    // RxJava
     implementation "io.reactivex.rxjava2:rxjava:$rootProject.rxjavaVersion"
     implementation "io.reactivex.rxjava2:rxandroid:$rootProject.rxandroidVersion"
+
+    // SqlBrite
     implementation "com.squareup.sqlbrite2:sqlbrite:$rootProject.sqlbriteVersion"
 
     // Retrofit REST API
@@ -112,4 +116,5 @@ dependencies {
     androidTestImplementation "com.android.support:recyclerview-v7:$rootProject.supportLibraryVersion"
     androidTestImplementation "com.android.support:appcompat-v7:$rootProject.supportLibraryVersion"
     androidTestImplementation "com.android.support:design:$rootProject.supportLibraryVersion"
+
 }

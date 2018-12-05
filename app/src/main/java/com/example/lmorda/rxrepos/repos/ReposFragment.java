@@ -64,7 +64,7 @@ public class ReposFragment extends Fragment implements ReposContract.View {
                 ContextCompat.getColor(getActivity(), R.color.colorPrimaryDark)
         );
         swipeRefreshLayout.setScrollUpChild(listView);
-        swipeRefreshLayout.setOnRefreshListener(() -> mPresenter.loadRepos());
+        swipeRefreshLayout.setOnRefreshListener(() -> mPresenter.loadRepos(false));
         setHasOptionsMenu(true);
         return root;
     }
@@ -118,7 +118,7 @@ public class ReposFragment extends Fragment implements ReposContract.View {
                     mPresenter.setFiltering(ReposFilterType.JAVA_REPOS);
                     break;
             }
-            mPresenter.loadRepos();
+            mPresenter.loadRepos(false);
             return true;
         });
 

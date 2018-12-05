@@ -37,6 +37,18 @@ public class Repo {
         return language;
     }
 
+    public Repo() {
+
+    }
+
+    public Repo(Integer itemId, String name, String description, String url, String language) {
+        this.id = itemId;
+        this.name = name;
+        this.description = description;
+        this.url = url;
+        this.language = language;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

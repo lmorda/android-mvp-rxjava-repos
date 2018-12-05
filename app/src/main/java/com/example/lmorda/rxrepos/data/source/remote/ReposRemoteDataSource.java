@@ -1,4 +1,4 @@
-package com.example.lmorda.rxrepos.data.source;
+package com.example.lmorda.rxrepos.data.source.remote;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
@@ -7,24 +7,23 @@ import android.support.annotation.Nullable;
 import com.example.lmorda.rxrepos.RepoConstants;
 import com.example.lmorda.rxrepos.data.GithubRepos;
 import com.example.lmorda.rxrepos.data.Repo;
+import com.example.lmorda.rxrepos.data.source.ReposDataSource;
 import com.example.lmorda.rxrepos.util.schedulers.BaseSchedulerProvider;
-import com.example.lmorda.rxrepos.util.schedulers.SchedulerProvider;
+import com.google.common.base.Optional;
 
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
-import io.reactivex.Observable;
-import io.reactivex.Scheduler;
+import io.reactivex.Flowable;
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
-import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.jackson.JacksonConverterFactory;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
-public class ReposRemoteDataSource implements GithubApiService {
+public class ReposRemoteDataSource implements ReposDataSource {
 
     @Nullable
     private static ReposRemoteDataSource INSTANCE;
@@ -81,7 +80,24 @@ public class ReposRemoteDataSource implements GithubApiService {
     }
 
     @Override
-    public Observable<GithubRepos> getRepos(String url) {
-        return retrofit.create(GithubApiService.class).getRepos(RepoConstants.TRENDING_URL);
+    public Flowable<List<Repo>> getRepos() {
+        return retrofit.create(GithubApiService.class).getRepos(RepoConstants.TRENDING_URL)
+                .concatMap( repos -> Flowable.just(repos.items));
+    }
+
+    @Override
+    public Flowable<Optional<Repo>> getRepo(@NonNull Integer repoId) {
+        return retrofit.create(GithubApiService.class).getRepo(RepoConstants.GET_REPO_BY_ID_BASE_URL + repoId);
+    }
+
+    @Override
+    public void saveRepo(@NonNull Repo repo) {
+
+    }
+
+    @Override
+    public void refreshRepos() {
+        // Not required because the {@link ReposRepository} handles the logic of refreshing the
+        // tasks from all the available data sources.
     }
 }

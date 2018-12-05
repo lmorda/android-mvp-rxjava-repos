@@ -4,8 +4,7 @@ import android.content.Context;
 import android.support.annotation.NonNull;
 
 import com.example.lmorda.rxrepos.data.FakeReposRemoteDataSource;
-import com.example.lmorda.rxrepos.data.source.GithubApiService;
-import com.example.lmorda.rxrepos.data.source.ReposRemoteDataSource;
+import com.example.lmorda.rxrepos.data.source.remote.GithubApiService;
 import com.example.lmorda.rxrepos.util.schedulers.BaseSchedulerProvider;
 import com.example.lmorda.rxrepos.util.schedulers.SchedulerProvider;
 

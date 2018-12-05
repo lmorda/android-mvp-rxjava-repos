@@ -23,7 +23,7 @@ public interface ReposContract {
 
     interface Presenter extends BasePresenter {
 
-        void loadRepos();
+        void loadRepos(boolean forceUpdate);
 
         void setFiltering(ReposFilterType requestType);
 

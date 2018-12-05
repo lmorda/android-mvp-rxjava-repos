@@ -47,7 +47,7 @@ public class ReposActivity extends AppCompatActivity {
         }
 
         mReposPresenter = new ReposPresenter(
-                Injection.provideReposRemoteDataSource(getApplicationContext()),
+                Injection.provideReposRepository(getApplicationContext()),
                 reposFragment,
                 Injection.provideSchedulerProvider());
     }

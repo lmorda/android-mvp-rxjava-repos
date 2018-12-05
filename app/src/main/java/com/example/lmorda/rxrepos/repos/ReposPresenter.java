@@ -4,13 +4,14 @@ import android.support.annotation.NonNull;
 
 import com.example.lmorda.rxrepos.RepoConstants;
 import com.example.lmorda.rxrepos.data.Repo;
-import com.example.lmorda.rxrepos.data.source.GithubApiService;
+import com.example.lmorda.rxrepos.data.source.ReposRepository;
+import com.example.lmorda.rxrepos.data.source.remote.GithubApiService;
 import com.example.lmorda.rxrepos.util.EspressoIdlingResource;
 import com.example.lmorda.rxrepos.util.schedulers.BaseSchedulerProvider;
 
 import java.util.List;
 
-import io.reactivex.Observable;
+import io.reactivex.Flowable;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
 
@@ -19,7 +20,7 @@ import static com.google.common.base.Preconditions.checkNotNull;
 public class ReposPresenter implements ReposContract.Presenter {
 
     @NonNull
-    private final GithubApiService mReposRemoteDataSource;
+    private final ReposRepository mReposRepository;
 
     @NonNull
     private final ReposContract.View mReposView;
@@ -30,13 +31,15 @@ public class ReposPresenter implements ReposContract.Presenter {
     @NonNull
     private ReposFilterType mCurrentFiltering = ReposFilterType.ALL_REPOS;
 
+    private boolean mFirstLoad = true;
+
     @NonNull
     private CompositeDisposable mCompositeDisposable;
 
-    public ReposPresenter(@NonNull GithubApiService githubApiService,
+    public ReposPresenter(@NonNull ReposRepository reposRepository,
                           @NonNull ReposContract.View reposView,
                           @NonNull BaseSchedulerProvider schedulerProvider) {
-        mReposRemoteDataSource = checkNotNull(githubApiService, "githubApiService cannot be null");
+        mReposRepository = checkNotNull(reposRepository, "reposRepository cannot be null");
         mReposView = checkNotNull(reposView, "ReposView cannot be null!");
         mSchedulerProvider = checkNotNull(schedulerProvider, "schedulerProvider cannot be null");
 
@@ -46,7 +49,7 @@ public class ReposPresenter implements ReposContract.Presenter {
 
     @Override
     public void subscribe() {
-        loadRepos();
+        loadRepos(false);
     }
 
     @Override
@@ -55,19 +58,28 @@ public class ReposPresenter implements ReposContract.Presenter {
     }
 
     @Override
-    public void loadRepos() {
+    public void loadRepos(boolean forceUpdate) {
+        loadRepos(forceUpdate || mFirstLoad, true);
+
+        mFirstLoad = false;
+    }
+
+
+    private void loadRepos(final boolean forceUpdate, final boolean showLoadingUI) {
+
+        if (showLoadingUI) {
+            mReposView.setLoadingIndicator(true);
+        }
+        if (forceUpdate) {
+            mReposRepository.refreshRepos();
+        }
+
         EspressoIdlingResource.increment();
 
-        mReposView.setLoadingIndicator(true);
-
         mCompositeDisposable.clear();
-
-        // Should be in a cache layer since this hits the server everytime I choose a filter,
-        // which could just be done with REST. Using this approach for simplicity for now
-        Disposable repoItemsObservable = mReposRemoteDataSource
-                .getRepos(RepoConstants.TRENDING_URL)
-                .concatMap( repos -> Observable.just(repos.items))
-                .flatMap(Observable::fromIterable)
+        Disposable repoItemsFlowable = mReposRepository
+                .getRepos()
+                .flatMap(Flowable::fromIterable)
                 .filter(repo -> {
                     switch (mCurrentFiltering) {
                         case JAVA_REPOS:
@@ -98,7 +110,8 @@ public class ReposPresenter implements ReposContract.Presenter {
 
 
 
-        mCompositeDisposable.add(repoItemsObservable);
+        mCompositeDisposable.add(repoItemsFlowable);
+
     }
 
     @Override
