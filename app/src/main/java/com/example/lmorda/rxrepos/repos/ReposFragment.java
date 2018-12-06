@@ -89,6 +89,12 @@ public class ReposFragment extends Fragment implements ReposContract.View {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
+            case R.id.menu_search:
+                showSearchBar();
+                break;
+            case R.id.menu_sort:
+                sortRepos();
+                break;
             case R.id.menu_filter:
                 showFilteringPopUpMenu();
                 break;
@@ -108,7 +114,7 @@ public class ReposFragment extends Fragment implements ReposContract.View {
 
         popup.setOnMenuItemClickListener(item -> {
             switch (item.getItemId()) {
-                case R.id.all:
+                case R.id.allRepos:
                     mPresenter.setFiltering(ReposFilterType.ALL_REPOS);
                     break;
                 case R.id.kotlinRepos:

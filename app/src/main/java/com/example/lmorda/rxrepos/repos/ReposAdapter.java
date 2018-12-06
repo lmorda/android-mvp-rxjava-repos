@@ -1,5 +1,9 @@
 package com.example.lmorda.rxrepos.repos;
 
+import android.content.ActivityNotFoundException;
+import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -61,6 +65,20 @@ public class ReposAdapter extends BaseAdapter {
         TextView descriptionTV = rowView.findViewById(R.id.repo_description);
         descriptionTV.setText(repo.description);
 
+        rowView.setOnClickListener(view1 -> openChrome(repo.url, viewGroup.getContext()));
+
         return rowView;
+    }
+
+    private void openChrome(String url, Context context) {
+        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        intent.setPackage("com.android.chrome");
+        try {
+            context.startActivity(intent);
+        } catch (ActivityNotFoundException exception) {
+            intent.setPackage(null);
+            context.startActivity(intent);
+        }
     }
 }
