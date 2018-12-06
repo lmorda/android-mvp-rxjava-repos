@@ -1,6 +1,9 @@
 package com.example.lmorda.rxrepos.repos;
 
+import android.app.SearchManager;
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.VisibleForTesting;
 import android.support.design.widget.NavigationView;
 import android.support.test.espresso.IdlingResource;
 import android.support.v4.widget.DrawerLayout;
@@ -12,7 +15,6 @@ import com.example.lmorda.rxrepos.Injection;
 import com.example.lmorda.rxrepos.R;
 import com.example.lmorda.rxrepos.util.ActivityUtils;
 import com.example.lmorda.rxrepos.util.EspressoIdlingResource;
-import android.support.annotation.VisibleForTesting;
 
 public class ReposActivity extends AppCompatActivity {
 
@@ -50,6 +52,12 @@ public class ReposActivity extends AppCompatActivity {
                 Injection.provideReposRepository(getApplicationContext()),
                 reposFragment,
                 Injection.provideSchedulerProvider());
+
+        // Get the intent, verify the action and get the query
+        Intent intent = getIntent();
+        if (Intent.ACTION_SEARCH.equals(intent.getAction())) {
+            String query = intent.getStringExtra(SearchManager.QUERY);
+        }
     }
 
     @Override
@@ -74,7 +82,6 @@ public class ReposActivity extends AppCompatActivity {
                     return true;
                 });
     }
-
 
     @VisibleForTesting
     public IdlingResource getCountingIdlingResource() {

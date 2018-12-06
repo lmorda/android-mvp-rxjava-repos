@@ -3,7 +3,6 @@ package com.example.lmorda.rxrepos.data;
 import android.support.annotation.NonNull;
 
 import com.example.lmorda.rxrepos.data.source.ReposDataSource;
-import com.example.lmorda.rxrepos.data.source.remote.GithubApiService;
 import com.google.common.base.Optional;
 
 import java.util.ArrayList;
@@ -24,13 +23,13 @@ public class FakeReposRemoteDataSource implements ReposDataSource {
         repo1.description = "RxJava2 + Retrofit + MVP example";
         repo1.name = "android-mvp-rxjava-repos";
         repo1.url = "http://www.github.com/lmorda/android-mvp-rxjava-repos";
-        repo1.language = "java";
+        repo1.language = "Java";
         REPOS_SERVICE_DATA.items.add(repo1);
         Repo repo2 = new Repo();
         repo2.description = "Retrofit + MVP example";
         repo2.name = "android-mvp-retrofit-repos";
         repo2.url = "http://www.github.com/lmorda/android-mvp-retrofit-repos";
-        repo2.language = "java";
+        repo2.language = "Java";
         REPOS_SERVICE_DATA.items.add(repo2);
     }
 
@@ -44,13 +43,9 @@ public class FakeReposRemoteDataSource implements ReposDataSource {
         return INSTANCE;
     }
 
-    public Flowable<GithubRepos> getRepos(String url) {
-        return Flowable.just(REPOS_SERVICE_DATA);
-    }
-
     @Override
     public Flowable<List<Repo>> getRepos() {
-        return null;
+        return Flowable.just(REPOS_SERVICE_DATA.items);
     }
 
     @Override
@@ -60,6 +55,10 @@ public class FakeReposRemoteDataSource implements ReposDataSource {
 
     @Override
     public void saveRepo(@NonNull Repo repo) {
+
+    }
+
+    @Override public void refreshRepos() {
 
     }
 }

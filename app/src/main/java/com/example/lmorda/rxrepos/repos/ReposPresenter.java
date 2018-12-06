@@ -2,10 +2,8 @@ package com.example.lmorda.rxrepos.repos;
 
 import android.support.annotation.NonNull;
 
-import com.example.lmorda.rxrepos.RepoConstants;
 import com.example.lmorda.rxrepos.data.Repo;
 import com.example.lmorda.rxrepos.data.source.ReposRepository;
-import com.example.lmorda.rxrepos.data.source.remote.GithubApiService;
 import com.example.lmorda.rxrepos.util.EspressoIdlingResource;
 import com.example.lmorda.rxrepos.util.schedulers.BaseSchedulerProvider;
 
@@ -30,6 +28,9 @@ public class ReposPresenter implements ReposContract.Presenter {
 
     @NonNull
     private ReposFilterType mCurrentFiltering = ReposFilterType.ALL_REPOS;
+
+    @NonNull
+    private String mCurrentSearch = "";
 
     private boolean mFirstLoad = true;
 
@@ -64,7 +65,6 @@ public class ReposPresenter implements ReposContract.Presenter {
         mFirstLoad = false;
     }
 
-
     private void loadRepos(final boolean forceUpdate, final boolean showLoadingUI) {
 
         if (showLoadingUI) {
@@ -87,6 +87,7 @@ public class ReposPresenter implements ReposContract.Presenter {
                         case KOTLIN_REPOS:
                             return repo.language.equals("Kotlin");
                         case ALL_REPOS:
+                            //return repo.name.contains(mCurrentSearch);
                         default:
                             return true;
                     }
@@ -117,6 +118,11 @@ public class ReposPresenter implements ReposContract.Presenter {
     @Override
     public void setFiltering(ReposFilterType requestType) {
         mCurrentFiltering = requestType;
+    }
+
+    @Override
+    public void setSearchString(String searchString) {
+        mCurrentSearch = searchString;
     }
 
     @Override

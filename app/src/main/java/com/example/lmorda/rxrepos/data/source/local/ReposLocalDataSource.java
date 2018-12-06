@@ -10,6 +10,7 @@ import android.text.TextUtils;
 
 import com.example.lmorda.rxrepos.data.Repo;
 import com.example.lmorda.rxrepos.data.source.ReposDataSource;
+import com.example.lmorda.rxrepos.data.source.local.ReposPersistenceContract.RepoEntry;
 import com.example.lmorda.rxrepos.util.schedulers.BaseSchedulerProvider;
 import com.google.common.base.Optional;
 import com.squareup.sqlbrite2.BriteDatabase;
@@ -22,7 +23,6 @@ import io.reactivex.Flowable;
 import io.reactivex.functions.Function;
 
 import static com.google.common.base.Preconditions.checkNotNull;
-import com.example.lmorda.rxrepos.data.source.local.ReposPersistenceContract.RepoEntry;
 
 
 public class ReposLocalDataSource implements ReposDataSource {
@@ -93,14 +93,14 @@ public class ReposLocalDataSource implements ReposDataSource {
     }
 
     @Override
-    public void saveRepo(@NonNull Repo task) {
-        checkNotNull(task);
+    public void saveRepo(@NonNull Repo message) {
+        checkNotNull(message);
         ContentValues values = new ContentValues();
-        values.put(RepoEntry.COLUMN_NAME_ENTRY_ID, task.getId());
-        values.put(RepoEntry.COLUMN_NAME_NAME, task.getName());
-        values.put(RepoEntry.COLUMN_NAME_DESCRIPTION, task.getDescription());
-        values.put(RepoEntry.COLUMN_NAME_URL, task.getUrl());
-        values.put(RepoEntry.COLUMN_NAME_LANGUAGE, task.getLanguage());
+        values.put(RepoEntry.COLUMN_NAME_ENTRY_ID, message.getId());
+        values.put(RepoEntry.COLUMN_NAME_NAME, message.getName());
+        values.put(RepoEntry.COLUMN_NAME_DESCRIPTION, message.getDescription());
+        values.put(RepoEntry.COLUMN_NAME_URL, message.getUrl());
+        values.put(RepoEntry.COLUMN_NAME_LANGUAGE, message.getLanguage());
         mDatabaseHelper.insert(RepoEntry.TABLE_NAME, values, SQLiteDatabase.CONFLICT_REPLACE);
     }
 
@@ -122,6 +122,6 @@ public class ReposLocalDataSource implements ReposDataSource {
     @Override
     public void refreshRepos() {
         // Not required because the {@link ReposRepository} handles the logic of refreshing the
-        // tasks from all the available data sources.
+        // messages from all the available data sources.
     }
 }

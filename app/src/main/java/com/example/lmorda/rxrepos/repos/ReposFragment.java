@@ -1,13 +1,14 @@
 package com.example.lmorda.rxrepos.repos;
 
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
-import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.PopupMenu;
+import android.support.v7.widget.SearchView;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -89,12 +90,6 @@ public class ReposFragment extends Fragment implements ReposContract.View {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.menu_search:
-                showSearchBar();
-                break;
-            case R.id.menu_sort:
-                sortRepos();
-                break;
             case R.id.menu_filter:
                 showFilteringPopUpMenu();
                 break;
@@ -105,7 +100,25 @@ public class ReposFragment extends Fragment implements ReposContract.View {
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         inflater.inflate(R.menu.fragment_repos_menu, menu);
+
+        SearchView searchView = (SearchView) menu.findItem(R.id.menu_search).getActionView();
+        searchView.setIconifiedByDefault(true);
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String s) {
+                mPresenter.setSearchString(s);
+                mPresenter.loadRepos(false);
+                return true;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String s) {
+                return false;
+            }
+        });
+
         super.onCreateOptionsMenu(menu, inflater);
+
     }
 
     public void showFilteringPopUpMenu() {

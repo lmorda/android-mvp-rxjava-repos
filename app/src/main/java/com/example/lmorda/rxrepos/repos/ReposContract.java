@@ -27,6 +27,8 @@ public interface ReposContract {
 
         void setFiltering(ReposFilterType requestType);
 
+        void setSearchString(String searchString);
+
         ReposFilterType getFiltering();
 
     }
