@@ -83,11 +83,11 @@ public class ReposPresenter implements ReposContract.Presenter {
                 .filter(repo -> {
                     switch (mCurrentFiltering) {
                         case JAVA_REPOS:
-                            return repo.language.equals("Java");
+                            return repo.language.equals("Java") && repo.name.contains(mCurrentSearch);
                         case KOTLIN_REPOS:
-                            return repo.language.equals("Kotlin");
+                            return repo.language.equals("Kotlin") && repo.name.contains(mCurrentSearch);
                         case ALL_REPOS:
-                            //return repo.name.contains(mCurrentSearch);
+                            return repo.name.contains(mCurrentSearch);
                         default:
                             return true;
                     }

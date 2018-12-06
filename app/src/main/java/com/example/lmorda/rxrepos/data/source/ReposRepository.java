@@ -1,11 +1,11 @@
 package com.example.lmorda.rxrepos.data.source;
 
-import com.example.lmorda.rxrepos.data.Repo;
-import com.google.common.base.Optional;
-
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.VisibleForTesting;
+
+import com.example.lmorda.rxrepos.data.Repo;
+import com.google.common.base.Optional;
 
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -75,7 +75,11 @@ public class ReposRepository implements ReposDataSource {
 
 
     public Flowable<List<Repo>> getAndCacheLocalRepos() {
-        return null;
+        return mReposLocalDataSource.getRepos()
+                .flatMap(repos -> Flowable.fromIterable(repos)
+                        .doOnNext(repo -> mCachedRepos.put(repo.getId(), repo))
+                        .toList()
+                        .toFlowable());
     }
 
     private Flowable<List<Repo>> getAndSaveRemoteRepos() {
@@ -135,6 +139,12 @@ public class ReposRepository implements ReposDataSource {
                 .toFlowable();
     }
 
+
+    @Override
+    public void refreshRepos() {
+        mCacheIsDirty = true;
+    }
+
     @Nullable
     private Repo getRepoWithId(@NonNull Integer id) {
         checkNotNull(id);
@@ -156,10 +166,4 @@ public class ReposRepository implements ReposDataSource {
                 })
                 .firstElement().toFlowable();
     }
-
-    @Override
-    public void refreshRepos() {
-        mCacheIsDirty = true;
-    }
-
 }

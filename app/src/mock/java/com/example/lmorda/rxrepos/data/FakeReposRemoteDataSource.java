@@ -20,12 +20,14 @@ public class FakeReposRemoteDataSource implements ReposDataSource {
         REPOS_SERVICE_DATA = new GithubRepos();
         REPOS_SERVICE_DATA.items = new ArrayList<>();
         Repo repo1 = new Repo();
+        repo1.id = 1;
         repo1.description = "RxJava2 + Retrofit + MVP example";
         repo1.name = "android-mvp-rxjava-repos";
         repo1.url = "http://www.github.com/lmorda/android-mvp-rxjava-repos";
         repo1.language = "Java";
         REPOS_SERVICE_DATA.items.add(repo1);
         Repo repo2 = new Repo();
+        repo2.id = 2;
         repo2.description = "Retrofit + MVP example";
         repo2.name = "android-mvp-retrofit-repos";
         repo2.url = "http://www.github.com/lmorda/android-mvp-retrofit-repos";
