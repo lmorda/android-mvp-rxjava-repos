@@ -32,7 +32,13 @@ public class FakeReposRemoteDataSource implements ReposDataSource {
         repo2.name = "android-mvp-retrofit-repos";
         repo2.url = "http://www.github.com/lmorda/android-mvp-retrofit-repos";
         repo2.language = "Java";
-        REPOS_SERVICE_DATA.items.add(repo2);
+        Repo repo3 = new Repo();
+        repo3.id = 3;
+        repo3.description = "Kotlin + Retrofit + MVI example";
+        repo3.name = "kotlin-mvi-rxjava-retrofit";
+        repo3.url = "http://www.github.com/lmorda/kotlin-mvi-rxjava-retrofit";
+        repo3.language = "Kotlin";
+        REPOS_SERVICE_DATA.items.add(repo3);
     }
 
     private FakeReposRemoteDataSource() {
