@@ -12,8 +12,8 @@ public class Repo {
     public String name;
     @JsonProperty("description")
     public String description;
-    @JsonProperty("url")
-    public String url;
+    @JsonProperty("html_url")
+    public String html_url;
     @JsonProperty("language")
     public String language;
 
@@ -29,8 +29,8 @@ public class Repo {
         return description;
     }
 
-    public String getUrl() {
-        return url;
+    public String getHtml_url() {
+        return html_url;
     }
 
     public String getLanguage() {
@@ -41,11 +41,11 @@ public class Repo {
 
     }
 
-    public Repo(Integer itemId, String name, String description, String url, String language) {
+    public Repo(Integer itemId, String name, String description, String html_url, String language) {
         this.id = itemId;
         this.name = name;
         this.description = description;
-        this.url = url;
+        this.html_url = html_url;
         this.language = language;
     }
 
@@ -57,13 +57,13 @@ public class Repo {
         return Objects.equal(id, repo.id) &&
                 Objects.equal(name, repo.name) &&
                 Objects.equal(description, repo.description) &&
-                Objects.equal(url, repo.url) &&
+                Objects.equal(html_url, repo.html_url) &&
                 Objects.equal(language, repo.language);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(id, name, description, url, language);
+        return Objects.hashCode(id, name, description, html_url, language);
     }
 
     @Override
@@ -72,7 +72,7 @@ public class Repo {
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", description='" + description + '\'' +
-                ", url='" + url + '\'' +
+                ", html_url='" + html_url + '\'' +
                 ", language='" + language + '\'' +
                 '}';
     }

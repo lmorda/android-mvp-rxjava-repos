@@ -1,4 +1,3 @@
-package com.example.lmorda.rxrepos.repos;
 
 /*
  * Copyright 2016, The Android Open Source Project
@@ -15,6 +14,7 @@ package com.example.lmorda.rxrepos.repos;
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+package com.example.lmorda.rxrepos.repos;
 
 import android.content.Context;
 import android.support.v4.view.ViewCompat;

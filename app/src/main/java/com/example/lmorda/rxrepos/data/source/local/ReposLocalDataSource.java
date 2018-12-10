@@ -1,3 +1,18 @@
+/*
+ * Copyright 2016, The Android Open Source Project
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package com.example.lmorda.rxrepos.data.source.local;
 
 import android.content.ContentValues;
@@ -99,7 +114,7 @@ public class ReposLocalDataSource implements ReposDataSource {
         values.put(RepoEntry.COLUMN_NAME_ENTRY_ID, message.getId());
         values.put(RepoEntry.COLUMN_NAME_NAME, message.getName());
         values.put(RepoEntry.COLUMN_NAME_DESCRIPTION, message.getDescription());
-        values.put(RepoEntry.COLUMN_NAME_URL, message.getUrl());
+        values.put(RepoEntry.COLUMN_NAME_URL, message.getHtml_url());
         values.put(RepoEntry.COLUMN_NAME_LANGUAGE, message.getLanguage());
         mDatabaseHelper.insert(RepoEntry.TABLE_NAME, values, SQLiteDatabase.CONFLICT_REPLACE);
     }

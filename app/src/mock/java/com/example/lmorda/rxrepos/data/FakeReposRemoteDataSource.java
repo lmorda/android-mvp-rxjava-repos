@@ -1,3 +1,18 @@
+/*
+ * Copyright 2016, The Android Open Source Project
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package com.example.lmorda.rxrepos.data;
 
 import android.support.annotation.NonNull;
@@ -23,20 +38,20 @@ public class FakeReposRemoteDataSource implements ReposDataSource {
         repo1.id = 1;
         repo1.description = "RxJava2 + Retrofit + MVP example";
         repo1.name = "android-mvp-rxjava-repos";
-        repo1.url = "http://www.github.com/lmorda/android-mvp-rxjava-repos";
+        repo1.html_url = "http://www.github.com/lmorda/android-mvp-rxjava-repos";
         repo1.language = "Java";
         REPOS_SERVICE_DATA.items.add(repo1);
         Repo repo2 = new Repo();
         repo2.id = 2;
         repo2.description = "Retrofit + MVP example";
         repo2.name = "android-mvp-retrofit-repos";
-        repo2.url = "http://www.github.com/lmorda/android-mvp-retrofit-repos";
+        repo2.html_url = "http://www.github.com/lmorda/android-mvp-retrofit-repos";
         repo2.language = "Java";
         Repo repo3 = new Repo();
         repo3.id = 3;
         repo3.description = "Kotlin + Retrofit + MVI example";
         repo3.name = "kotlin-mvi-rxjava-retrofit";
-        repo3.url = "http://www.github.com/lmorda/kotlin-mvi-rxjava-retrofit";
+        repo3.html_url = "http://www.github.com/lmorda/kotlin-mvi-rxjava-retrofit";
         repo3.language = "Kotlin";
         REPOS_SERVICE_DATA.items.add(repo3);
     }
