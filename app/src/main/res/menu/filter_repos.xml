@@ -2,11 +2,11 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:id="@+id/allRepos"
-        android:title="All Repos" />
-    <item
-        android:id="@+id/kotlinRepos"
-        android:title="Kotlin" />
+        android:title="All" />
     <item
         android:id="@+id/javaRepos"
         android:title="Java" />
+    <item
+        android:id="@+id/kotlinRepos"
+        android:title="Kotlin" />
 </menu>

@@ -1,11 +1,15 @@
 package com.example.lmorda.rxrepos.data;
 
+import android.support.annotation.NonNull;
+
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.google.common.base.Objects;
 
+import java.util.Comparator;
+
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class Repo {
+public class Repo implements Comparable<Repo> {
     @JsonProperty("id")
     public Integer id;
     @JsonProperty("name")
@@ -75,5 +79,10 @@ public class Repo {
                 ", html_url='" + html_url + '\'' +
                 ", language='" + language + '\'' +
                 '}';
+    }
+
+    @Override
+    public int compareTo(@NonNull Repo repo) {
+        return this.name.toLowerCase().compareTo(repo.name.toLowerCase());
     }
 }

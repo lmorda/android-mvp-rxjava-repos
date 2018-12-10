@@ -108,6 +108,7 @@ public class ReposPresenter implements ReposContract.Presenter {
                             return true;
                     }
                 })
+                .sorted()
                 .toList()
                 .subscribeOn(mSchedulerProvider.io())
                 .observeOn(mSchedulerProvider.ui())

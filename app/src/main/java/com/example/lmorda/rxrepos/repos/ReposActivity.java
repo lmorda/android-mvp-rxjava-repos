@@ -68,10 +68,10 @@ public class ReposActivity extends AppCompatActivity {
                 reposFragment,
                 Injection.provideSchedulerProvider());
 
-        // Get the intent, verify the action and get the query
-        Intent intent = getIntent();
-        if (Intent.ACTION_SEARCH.equals(intent.getAction())) {
-            String query = intent.getStringExtra(SearchManager.QUERY);
+        if (savedInstanceState != null) {
+            ReposFilterType currentFiltering =
+                    (ReposFilterType) savedInstanceState.getSerializable(CURRENT_FILTERING_KEY);
+            mReposPresenter.setFiltering(currentFiltering);
         }
     }
 
