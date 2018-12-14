@@ -6,8 +6,6 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.google.common.base.Objects;
 
-import java.util.Comparator;
-
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Repo implements Comparable<Repo> {
     @JsonProperty("id")
@@ -20,6 +18,11 @@ public class Repo implements Comparable<Repo> {
     public String html_url;
     @JsonProperty("language")
     public String language;
+    @JsonProperty("created_at")
+    public String created_at;
+    @JsonProperty("pushed_at")
+    public String pushed_at;
+
 
     public Integer getId() {
         return id;
@@ -41,16 +44,25 @@ public class Repo implements Comparable<Repo> {
         return language;
     }
 
+    public String getCreatedAt() {
+        return created_at;
+    }
+
+    public String getUpdatedAt() {
+        return pushed_at;
+    }
+
     public Repo() {
 
     }
 
-    public Repo(Integer itemId, String name, String description, String html_url, String language) {
+    public Repo(Integer itemId, String name, String description, String html_url, String language, String pushed_at) {
         this.id = itemId;
         this.name = name;
         this.description = description;
         this.html_url = html_url;
         this.language = language;
+        this.pushed_at = pushed_at;
     }
 
     @Override
@@ -62,12 +74,14 @@ public class Repo implements Comparable<Repo> {
                 Objects.equal(name, repo.name) &&
                 Objects.equal(description, repo.description) &&
                 Objects.equal(html_url, repo.html_url) &&
-                Objects.equal(language, repo.language);
+                Objects.equal(language, repo.language) &&
+                Objects.equal(created_at, repo.created_at) &&
+                Objects.equal(pushed_at, repo.pushed_at);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(id, name, description, html_url, language);
+        return Objects.hashCode(id, name, description, html_url, language, pushed_at);
     }
 
     @Override
@@ -78,6 +92,8 @@ public class Repo implements Comparable<Repo> {
                 ", description='" + description + '\'' +
                 ", html_url='" + html_url + '\'' +
                 ", language='" + language + '\'' +
+                ", created_at='" + created_at + '\'' +
+                ", pushed_at='" + pushed_at + '\'' +
                 '}';
     }
 

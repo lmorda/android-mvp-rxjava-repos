@@ -15,7 +15,6 @@
  */
 package com.example.lmorda.rxrepos.repos;
 
-import com.example.lmorda.rxrepos.R;
 import com.example.lmorda.rxrepos.data.Repo;
 import com.example.lmorda.rxrepos.data.source.ReposRepository;
 import com.example.lmorda.rxrepos.util.schedulers.BaseSchedulerProvider;
@@ -64,9 +63,9 @@ public class ReposPresenterTest {
         when(mReposView.isActive()).thenReturn(true);
 
         // We subscribe the repos to 3, with one java and two kotlin
-        REPOS = Lists.newArrayList(new Repo(1, "Name", "Description", "Url", "Java"),
-                new Repo(2, "Name2", "Description2", "Url2", "Java"),
-                new Repo(3, "Name3", "Description3", "Url3", "Kotlin"));
+        REPOS = Lists.newArrayList(new Repo(1, "Name", "Description", "Url", "Java", "2018-12-13T08:34:04Z"),
+                new Repo(2, "Name2", "Description2", "Url2", "Java", "2018-12-13T08:34:04Z"),
+                new Repo(3, "Name3", "Description3", "Url3", "Kotlin", "2018-12-13T08:34:04Z"));
     }
 
     @Test

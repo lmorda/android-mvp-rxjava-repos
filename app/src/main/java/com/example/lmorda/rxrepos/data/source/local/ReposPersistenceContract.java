@@ -29,6 +29,8 @@ public final class ReposPersistenceContract {
         public static final String COLUMN_NAME_DESCRIPTION = "description";
         public static final String COLUMN_NAME_URL = "html_url";
         public static final String COLUMN_NAME_LANGUAGE = "language";
+        public static final String COLUMN_NAME_CREATED_AT = "created_at";
+        public static final String COLUMN_NAME_PUSHED_AT = "pushed_at";
     }
 
 }

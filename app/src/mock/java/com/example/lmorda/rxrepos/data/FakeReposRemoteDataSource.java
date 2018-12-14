@@ -40,6 +40,8 @@ public class FakeReposRemoteDataSource implements ReposDataSource {
         repo1.name = "android-mvp-rxjava-repos";
         repo1.html_url = "http://www.github.com/lmorda/android-mvp-rxjava-repos";
         repo1.language = "Java";
+        repo1.created_at = "2018-12-13T08:34:04Z";
+        repo2.pushed_at = "2018-12-12T08:34:04Z";
         REPOS_SERVICE_DATA.items.add(repo1);
         Repo repo2 = new Repo();
         repo2.id = 2;
@@ -47,12 +49,16 @@ public class FakeReposRemoteDataSource implements ReposDataSource {
         repo2.name = "android-mvp-retrofit-repos";
         repo2.html_url = "http://www.github.com/lmorda/android-mvp-retrofit-repos";
         repo2.language = "Java";
+        repo2.created_at = "2018-12-13T08:34:04Z";
+        repo2.pushed_at = "2018-12-11T08:34:04Z";
         Repo repo3 = new Repo();
         repo3.id = 3;
         repo3.description = "Kotlin + Retrofit + MVI example";
         repo3.name = "kotlin-mvi-rxjava-retrofit";
         repo3.html_url = "http://www.github.com/lmorda/kotlin-mvi-rxjava-retrofit";
         repo3.language = "Kotlin";
+        repo3.created_at = "2018-12-13T08:34:04Z";
+        repo2.pushed_at = "2018-12-10T08:34:04Z";
         REPOS_SERVICE_DATA.items.add(repo3);
     }
 

@@ -27,10 +27,13 @@ import android.widget.TextView;
 
 import com.example.lmorda.rxrepos.R;
 import com.example.lmorda.rxrepos.data.Repo;
+import com.example.lmorda.rxrepos.util.LocalDateTimeHelper;
 
-import static com.google.common.base.Preconditions.checkNotNull;
+import org.threeten.bp.Instant;
 
 import java.util.List;
+
+import static com.google.common.base.Preconditions.checkNotNull;
 
 public class ReposAdapter extends BaseAdapter {
 
@@ -79,6 +82,14 @@ public class ReposAdapter extends BaseAdapter {
 
         TextView descriptionTV = rowView.findViewById(R.id.repo_description);
         descriptionTV.setText(repo.description);
+
+        TextView createdAtTV = rowView.findViewById(R.id.repo_created_at);
+        String createdText = "Created " + LocalDateTimeHelper.getFormattedTimeStamp(Instant.now().toString(), repo.created_at);
+        createdAtTV.setText(createdText);
+
+        TextView pushedAtTV = rowView.findViewById(R.id.repo_pushed_at);
+        String pushedText = "Last pushed " + LocalDateTimeHelper.getFormattedTimeStamp(Instant.now().toString(), repo.pushed_at);
+        pushedAtTV.setText(pushedText);
 
         rowView.setOnClickListener(view1 -> openChrome(repo.html_url, viewGroup.getContext()));
 

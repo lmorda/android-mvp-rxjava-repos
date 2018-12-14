@@ -49,8 +49,8 @@ public class ReposRepositoryTest {
     private final static String REPO_NAME = "name";
 
     private static List<Repo> REPOS = Lists.newArrayList(
-            new Repo(1, "Name1", "Description1", "Url1", "Language1"),
-            new Repo(2, "Name2", "Description2", "Url2", "Language2"));
+            new Repo(1, "Name1", "Description1", "Url1", "Language1", "2018-12-13T08:34:04Z"),
+            new Repo(2, "Name2", "Description2", "Url2", "Language2", "2018-12-13T08:34:04Z"));
 
     private ReposRepository mReposRepository;
 
@@ -141,12 +141,12 @@ public class ReposRepositoryTest {
     @Test
     public void saveRepo_savesRepoToServiceAPI() {
         // Given a stub repo with name
-        Repo newRepo = new Repo(0, REPO_NAME, "", "", "");
+        Repo newRepo = new Repo(0, REPO_NAME, "", "", "", "");
 
         // When a repo is saved to the repos repository
         mReposRepository.saveRepo(newRepo);
 
-        // Then the service API and persistent repository are called and the cache is updated
+        // Then the service API and persistent repository are called and the cache is pushed
         verify(mReposRemoteDataSource).saveRepo(newRepo);
         verify(mReposLocalDataSource).saveRepo(newRepo);
         assertThat(mReposRepository.mCachedRepos.size(), is(1));
@@ -155,7 +155,7 @@ public class ReposRepositoryTest {
     @Test
     public void getRepo_requestsSingleRepoFromLocalDataSource() {
         // Given a stub repo with name in the local repository
-        Repo repo = new Repo(0, REPO_NAME, "", "", "");
+        Repo repo = new Repo(0, REPO_NAME, "", "", "", "");
         Optional<Repo> repoOptional = Optional.of(repo);
         setRepoAvailable(mReposLocalDataSource, repoOptional);
         // And the repo not available in the remote repository
@@ -173,7 +173,7 @@ public class ReposRepositoryTest {
     @Test
     public void getRepo_whenDataNotLocal_fails() {
         // Given a stub repo with name in the remote repository
-        Repo repo = new Repo(0, REPO_NAME, "", "", "");
+        Repo repo = new Repo(0, REPO_NAME, "", "", "", "");
         Optional<Repo> repoOptional = Optional.of(repo);
         setRepoAvailable(mReposRemoteDataSource, repoOptional);
         // And the repo not available in the local repository

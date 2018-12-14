@@ -15,8 +15,6 @@
  */
 package com.example.lmorda.rxrepos.repos;
 
-import android.app.SearchManager;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.VisibleForTesting;
 import android.support.design.widget.NavigationView;
@@ -30,6 +28,7 @@ import com.example.lmorda.rxrepos.Injection;
 import com.example.lmorda.rxrepos.R;
 import com.example.lmorda.rxrepos.util.ActivityUtils;
 import com.example.lmorda.rxrepos.util.EspressoIdlingResource;
+import com.jakewharton.threetenabp.AndroidThreeTen;
 
 public class ReposActivity extends AppCompatActivity {
 
@@ -43,6 +42,9 @@ public class ReposActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_repos);
+
+        AndroidThreeTen.init(this);
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 

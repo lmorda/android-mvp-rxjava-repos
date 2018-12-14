@@ -50,4 +50,5 @@ ext {
     jacksonVersion = '2.9.6'
     butterknifeVersion = '8.8.1'
     rxjava2adapterVersion = '2.5.0'
+    threeTenAbpVersion = '1.1.1'
 }

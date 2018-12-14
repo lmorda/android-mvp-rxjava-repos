@@ -72,7 +72,9 @@ public class ReposLocalDataSource implements ReposDataSource {
         String description = c.getString(c.getColumnIndexOrThrow(RepoEntry.COLUMN_NAME_DESCRIPTION));
         String url = c.getString(c.getColumnIndexOrThrow(RepoEntry.COLUMN_NAME_URL));
         String language = c.getString(c.getColumnIndexOrThrow(RepoEntry.COLUMN_NAME_LANGUAGE));
-        return new Repo(itemId, name, description, url, language);
+        String createdAt = c.getString(c.getColumnIndexOrThrow(RepoEntry.COLUMN_NAME_CREATED_AT));
+        String pushedAt = c.getString(c.getColumnIndexOrThrow(RepoEntry.COLUMN_NAME_PUSHED_AT));
+        return new Repo(itemId, name, description, url, language, pushedAt);
     }
 
 
@@ -96,10 +98,11 @@ public class ReposLocalDataSource implements ReposDataSource {
                 RepoEntry.COLUMN_NAME_NAME,
                 RepoEntry.COLUMN_NAME_DESCRIPTION,
                 RepoEntry.COLUMN_NAME_URL,
-                RepoEntry.COLUMN_NAME_LANGUAGE
+                RepoEntry.COLUMN_NAME_LANGUAGE,
+                RepoEntry.COLUMN_NAME_CREATED_AT,
+                RepoEntry.COLUMN_NAME_PUSHED_AT
         };
 
-        //TODO: CAN I USE REPO NAME INSTEAD OF ID TO CREATEQUERY() ??  CANT USE ID BECAUSE ITS AN INTEGER
         String sql = String.format("SELECT %s FROM %s WHERE %s LIKE ?",
                 TextUtils.join(",", projection), RepoEntry.TABLE_NAME, RepoEntry.COLUMN_NAME_ENTRY_ID);
         return mDatabaseHelper.createQuery(RepoEntry.TABLE_NAME, sql, repoId.toString())
@@ -116,6 +119,8 @@ public class ReposLocalDataSource implements ReposDataSource {
         values.put(RepoEntry.COLUMN_NAME_DESCRIPTION, message.getDescription());
         values.put(RepoEntry.COLUMN_NAME_URL, message.getHtml_url());
         values.put(RepoEntry.COLUMN_NAME_LANGUAGE, message.getLanguage());
+        values.put(RepoEntry.COLUMN_NAME_CREATED_AT, message.getCreatedAt());
+        values.put(RepoEntry.COLUMN_NAME_PUSHED_AT, message.getUpdatedAt());
         mDatabaseHelper.insert(RepoEntry.TABLE_NAME, values, SQLiteDatabase.CONFLICT_REPLACE);
     }
 
@@ -126,7 +131,9 @@ public class ReposLocalDataSource implements ReposDataSource {
                 RepoEntry.COLUMN_NAME_NAME,
                 RepoEntry.COLUMN_NAME_DESCRIPTION,
                 RepoEntry.COLUMN_NAME_URL,
-                RepoEntry.COLUMN_NAME_LANGUAGE
+                RepoEntry.COLUMN_NAME_LANGUAGE,
+                RepoEntry.COLUMN_NAME_CREATED_AT,
+                RepoEntry.COLUMN_NAME_PUSHED_AT
         };
         String sql = String.format("SELECT %s FROM %s", TextUtils.join(",", projection), RepoEntry.TABLE_NAME);
         return mDatabaseHelper.createQuery(RepoEntry.TABLE_NAME, sql)

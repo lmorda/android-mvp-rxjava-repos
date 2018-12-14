@@ -36,7 +36,9 @@ public class ReposDbHelper extends SQLiteOpenHelper {
                     RepoEntry.COLUMN_NAME_NAME + TEXT_TYPE + COMMA_SEP +
                     RepoEntry.COLUMN_NAME_DESCRIPTION + TEXT_TYPE + COMMA_SEP +
                     RepoEntry.COLUMN_NAME_URL + TEXT_TYPE + COMMA_SEP +
-                    RepoEntry.COLUMN_NAME_LANGUAGE + TEXT_TYPE +
+                    RepoEntry.COLUMN_NAME_LANGUAGE + TEXT_TYPE + COMMA_SEP +
+                    RepoEntry.COLUMN_NAME_CREATED_AT + TEXT_TYPE + COMMA_SEP +
+                    RepoEntry.COLUMN_NAME_PUSHED_AT + TEXT_TYPE +
                     " )";
 
     public ReposDbHelper(Context context) {
