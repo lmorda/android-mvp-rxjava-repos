@@ -41,7 +41,7 @@ public class FakeReposRemoteDataSource implements ReposDataSource {
         repo1.html_url = "http://www.github.com/lmorda/android-mvp-rxjava-repos";
         repo1.language = "Java";
         repo1.created_at = "2018-12-13T08:34:04Z";
-        repo2.pushed_at = "2018-12-12T08:34:04Z";
+        repo1.pushed_at = "2018-12-12T08:34:04Z";
         REPOS_SERVICE_DATA.items.add(repo1);
         Repo repo2 = new Repo();
         repo2.id = 2;
