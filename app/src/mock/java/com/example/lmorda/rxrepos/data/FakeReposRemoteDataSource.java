@@ -58,7 +58,7 @@ public class FakeReposRemoteDataSource implements ReposDataSource {
         repo3.html_url = "http://www.github.com/lmorda/kotlin-mvi-rxjava-retrofit";
         repo3.language = "Kotlin";
         repo3.created_at = "2018-12-13T08:34:04Z";
-        repo2.pushed_at = "2018-12-10T08:34:04Z";
+        repo3.pushed_at = "2018-12-10T08:34:04Z";
         REPOS_SERVICE_DATA.items.add(repo3);
     }
 
