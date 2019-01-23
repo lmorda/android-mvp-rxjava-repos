@@ -56,6 +56,11 @@ public class Repo implements Comparable<Repo> {
 
     }
 
+    public Repo(Integer id, String name) {
+        this.id = id;
+        this.name = name;
+    }
+
     public Repo(Integer itemId, String name, String description, String html_url, String language, String pushed_at) {
         this.id = itemId;
         this.name = name;

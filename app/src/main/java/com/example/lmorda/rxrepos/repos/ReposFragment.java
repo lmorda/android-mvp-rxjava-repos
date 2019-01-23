@@ -33,6 +33,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.example.lmorda.rxrepos.R;
 import com.example.lmorda.rxrepos.data.Repo;
@@ -55,6 +56,8 @@ public class ReposFragment extends Fragment implements ReposContract.View {
 
     private LinearLayout mNoReposView;
 
+    private TextView mFilteringLabelView;
+
     public ReposFragment() { }
 
     public static ReposFragment newInstance() {
@@ -72,6 +75,7 @@ public class ReposFragment extends Fragment implements ReposContract.View {
         View root = inflater.inflate(R.layout.fragment_repos, container, false);
         ListView listView = root.findViewById(R.id.repos_list);
         listView.setAdapter(mListAdapter);
+        mFilteringLabelView = root.findViewById(R.id.filteringLabel);
         mReposView = root.findViewById(R.id.reposLL);
         mNoReposView = root.findViewById(R.id.norepos);
         final ScrollChildSwipeRefreshLayout swipeRefreshLayout = root.findViewById(R.id.refresh_layout);
@@ -191,6 +195,21 @@ public class ReposFragment extends Fragment implements ReposContract.View {
     public void showNoRepos() {
         mReposView.setVisibility(View.GONE);
         mNoReposView.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void showAllFilterLabel() {
+        mFilteringLabelView.setText(getResources().getString(R.string.label_all));
+    }
+
+    @Override
+    public void showJavaFilterLabel() {
+        mFilteringLabelView.setText(getResources().getString(R.string.label_java));
+    }
+
+    @Override
+    public void showKotlinFilterLabel() {
+        mFilteringLabelView.setText(getResources().getString(R.string.label_kotlin));
     }
 
     @Override

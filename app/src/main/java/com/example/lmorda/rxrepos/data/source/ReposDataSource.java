@@ -33,4 +33,6 @@ public interface ReposDataSource {
 
     void refreshRepos();
 
+    void deleteAllRepos();
+
 }

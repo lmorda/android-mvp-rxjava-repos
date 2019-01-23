@@ -33,6 +33,12 @@ public interface ReposContract {
 
         void showNoRepos();
 
+        void showAllFilterLabel();
+
+        void showJavaFilterLabel();
+
+        void showKotlinFilterLabel();
+
         void showFilteringPopUpMenu();
 
         boolean isActive();

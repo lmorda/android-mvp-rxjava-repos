@@ -160,6 +160,11 @@ public class ReposRepository implements ReposDataSource {
         mCacheIsDirty = true;
     }
 
+    @Override
+    public void deleteAllRepos() {
+
+    }
+
     @Nullable
     private Repo getRepoWithId(@NonNull Integer id) {
         checkNotNull(id);

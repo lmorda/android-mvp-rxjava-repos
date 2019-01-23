@@ -154,6 +154,26 @@ public class ReposPresenter implements ReposContract.Presenter {
         }
         else {
             mReposView.showRepos(repos);
+            // Set the filter label's text.
+            showFilterLabel();
+        }
+    }
+
+
+    private void showFilterLabel() {
+        switch (mCurrentFiltering) {
+            case ALL_REPOS:
+                mReposView.showAllFilterLabel();
+                break;
+            case JAVA_REPOS:
+                mReposView.showJavaFilterLabel();
+                break;
+            case KOTLIN_REPOS:
+                mReposView.showKotlinFilterLabel();
+                break;
+            default:
+                mReposView.showAllFilterLabel();
+                break;
         }
     }
 

@@ -146,4 +146,9 @@ public class ReposLocalDataSource implements ReposDataSource {
         // Not required because the {@link ReposRepository} handles the logic of refreshing the
         // messages from all the available data sources.
     }
+
+    @Override
+    public void deleteAllRepos() {
+        mDatabaseHelper.delete(RepoEntry.TABLE_NAME, null);
+    }
 }

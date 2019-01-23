@@ -2,4 +2,10 @@
     <string name="app_name">Rx Repos</string>
     <string name="action_settings">Settings</string>
     <string name="loading_repos_error">Could not load repositories!</string>
+    <string name="nav_header_title">Rx Repos</string>
+    <string name="nav_header_description">Retrofit2+RxJava2+MVP\nexample for hiring managers\nEmail: lmorda81@gmail.com</string>
+    <string name="no_repositories">No repositories found!</string>
+    <string name="label_all">All repositories</string>
+    <string name="label_java">Java repositories</string>
+    <string name="label_kotlin">Kotlin repositories</string>
 </resources>
