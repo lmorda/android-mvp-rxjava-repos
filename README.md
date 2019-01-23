@@ -27,4 +27,4 @@ Utilizes Retrofit2 and RxJava2 to retrieve Repository objects from the Github AP
 * Florina Muntenescu
 * Jose Alcerreca
 
-https://github.com/dmytrodanylyk/android-architecture/graphs/contributors
+https://github.com/dmytrodanylyk/android-architecture/tree/todo-mvp-rxjava
