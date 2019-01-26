@@ -82,7 +82,7 @@ public class ReposRepository implements ReposDataSource {
             // Query the local storage if available. If not, query the network.
             Flowable<List<Repo>> localRepos = getAndCacheLocalRepos();
             return Flowable.concat(localRepos, remoteRepos)
-                    .filter(tasks -> !tasks.isEmpty())
+                    .filter(repos -> !repos.isEmpty())
                     .firstOrError()
                     .toFlowable();
         }

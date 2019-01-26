@@ -113,6 +113,6 @@ public class ReposRemoteDataSource implements ReposDataSource {
     @Override
     public void refreshRepos() {
         // Not required because the {@link ReposRepository} handles the logic of refreshing the
-        // tasks from all the available data sources.
+        // repos from all the available data sources.
     }
 }
