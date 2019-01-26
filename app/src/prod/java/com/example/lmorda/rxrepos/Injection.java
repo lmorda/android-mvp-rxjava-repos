@@ -30,7 +30,7 @@ public class Injection {
 
     public static ReposRepository provideReposRepository(@NonNull Context context) {
         checkNotNull(context);
-        return ReposRepository.getInstance(ReposRemoteDataSource.getInstance(context, provideSchedulerProvider()),
+        return ReposRepository.getInstance(ReposRemoteDataSource.getInstance(context),
                 ReposLocalDataSource.getInstance(context, provideSchedulerProvider()));
     }
 

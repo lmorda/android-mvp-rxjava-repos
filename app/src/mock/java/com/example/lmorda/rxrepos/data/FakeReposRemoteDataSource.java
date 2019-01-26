@@ -90,4 +90,9 @@ public class FakeReposRemoteDataSource implements ReposDataSource {
     @Override public void refreshRepos() {
 
     }
+
+    @Override
+    public void deleteAllRepos() {
+
+    }
 }

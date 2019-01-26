@@ -46,26 +46,16 @@ public class ReposRemoteDataSource implements ReposDataSource {
     @NonNull
     private final Retrofit retrofit;
 
-    @NonNull
-    private final GithubApiService githubApiService;
-
-    @NonNull
-    private final BaseSchedulerProvider mSchedulerProvider;
-
-
-    private ReposRemoteDataSource(@NonNull Context context,
-                                  @NonNull BaseSchedulerProvider schedulerProvider) {
+    private ReposRemoteDataSource(@NonNull Context context) {
         checkNotNull(context, "context cannot be null");
-        mSchedulerProvider = checkNotNull(schedulerProvider, "scheduleProvider cannot be null");
         retrofit = buildRetrofit();
-        githubApiService = retrofit.create(GithubApiService.class);
+        retrofit.create(GithubApiService.class);
     }
 
     public static ReposRemoteDataSource getInstance(
-            @NonNull Context context,
-            @NonNull BaseSchedulerProvider schedulerProvider) {
+            @NonNull Context context) {
         if (INSTANCE == null) {
-            INSTANCE = new ReposRemoteDataSource(context, schedulerProvider);
+            INSTANCE = new ReposRemoteDataSource(context);
         }
         return INSTANCE;
     }
@@ -114,5 +104,10 @@ public class ReposRemoteDataSource implements ReposDataSource {
     public void refreshRepos() {
         // Not required because the {@link ReposRepository} handles the logic of refreshing the
         // repos from all the available data sources.
+    }
+
+    @Override
+    public void deleteAllRepos() {
+
     }
 }
