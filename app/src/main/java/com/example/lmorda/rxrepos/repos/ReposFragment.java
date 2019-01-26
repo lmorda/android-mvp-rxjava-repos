@@ -122,14 +122,14 @@ public class ReposFragment extends Fragment implements ReposContract.View {
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String s) {
-                mPresenter.setSearchString(s);
-                mPresenter.loadRepos(false);
                 return true;
             }
 
             @Override
             public boolean onQueryTextChange(String s) {
-                return false;
+                mPresenter.setSearchString(s);
+                mPresenter.loadRepos(false);
+                return true;
             }
         });
 

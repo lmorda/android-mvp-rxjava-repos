@@ -76,7 +76,9 @@ public class ReposPresenter implements ReposContract.Presenter {
 
     @Override
     public void loadRepos(boolean forceUpdate) {
-        loadRepos(forceUpdate || mFirstLoad, true);
+        // Simplification for sample: a network reload will be forced on first load,
+        // and loading icon will only be displayed for first load
+        loadRepos(forceUpdate || mFirstLoad, mFirstLoad);
 
         mFirstLoad = false;
     }
@@ -87,6 +89,7 @@ public class ReposPresenter implements ReposContract.Presenter {
             mReposView.setLoadingIndicator(true);
         }
         if (forceUpdate) {
+            // Refresh the data in the repository
             mReposRepository.refreshRepos();
         }
 

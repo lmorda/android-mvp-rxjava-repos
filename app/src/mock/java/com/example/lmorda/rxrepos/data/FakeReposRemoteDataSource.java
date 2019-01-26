@@ -53,9 +53,9 @@ public class FakeReposRemoteDataSource implements ReposDataSource {
         repo2.pushed_at = "2018-12-11T08:34:04Z";
         Repo repo3 = new Repo();
         repo3.id = 3;
-        repo3.description = "Kotlin + Retrofit + MVI example";
-        repo3.name = "kotlin-mvi-rxjava-retrofit";
-        repo3.html_url = "http://www.github.com/lmorda/kotlin-mvi-rxjava-retrofit";
+        repo3.description = "Kotlin + Retrofit + Coroutines example";
+        repo3.name = "kotlin-mvp-coroutines-retrofit";
+        repo3.html_url = "https://github.com/lmorda/kotlin-mvp-coroutines-retrofit";
         repo3.language = "Kotlin";
         repo3.created_at = "2018-12-13T08:34:04Z";
         repo3.pushed_at = "2018-12-10T08:34:04Z";
