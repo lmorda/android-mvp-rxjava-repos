@@ -39,7 +39,7 @@ import static org.hamcrest.core.IsNot.not;
 public class MockReposScreenTest {
 
     private final static String JAVA_REPO_NAME = "android-mvp-rxjava-repos";
-    private final static String KOTLIN_REPO_NAME = "kotlin-mvi-rxjava-retrofit";
+    private final static String KOTLIN_REPO_NAME = "kotlin-mvp-coroutines-retrofit";
 
     @Rule
     public ActivityTestRule<ReposActivity> mReposActivityTestRule =

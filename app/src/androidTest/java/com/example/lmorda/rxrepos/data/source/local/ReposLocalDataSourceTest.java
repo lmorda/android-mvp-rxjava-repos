@@ -73,7 +73,7 @@ public class ReposLocalDataSourceTest {
     }
 
     @Test
-    public void deleteAllTasks_emptyListOfRetrievedTask() {
+    public void deleteAllRepos_emptyListOfRetrievedRepo() {
         // Given a new repo in the persistent repository and a mocked callback
         Repo newRepo = new Repo(1, REPO);
         mLocalDataSource.saveRepo(newRepo);
@@ -89,7 +89,7 @@ public class ReposLocalDataSourceTest {
     }
 
     @Test
-    public void getTasks_retrieveSavedTasks() {
+    public void getRepos_retrieveSavedRepos() {
         // Given 2 new repos in the persistent repository
         Repo newRepo1 = new Repo(1, REPO);
         mLocalDataSource.saveRepo(newRepo1);
@@ -104,7 +104,7 @@ public class ReposLocalDataSourceTest {
     }
 
     @Test
-    public void getTask_whenTaskNotSaved() {
+    public void getRepo_whenRepoNotSaved() {
         //Given that no repo has been saved
         //When querying for a repo, null is returned.
         TestSubscriber<Optional<Repo>> testSubscriber = new TestSubscriber<>();
